@@ -45,6 +45,22 @@ function localIntercept(targets) {
     //     'span className={classes.root} data-cy="CurrentFilter-root"',
     //     '"customFilter"'
     // );
+
+    // Add payment method - Bank transfer
+    targets.of('@magento/venia-ui').checkoutPagePaymentTypes.tap(payments =>
+        payments.add({
+            paymentCode: 'banktransfer',
+            importPath: 'src/components/PaymentMethods/BankTransfer'
+        })
+    );
+
+    targets.of('@magento/venia-ui').summaryPagePaymentTypes.tap(paymentsSummary =>
+        paymentsSummary.add({
+          paymentCode: 'banktransfer',
+          importPath:
+            'src/components/PaymentMethods/BankTransfer/Summary.jsx',
+        })
+      );
 }
 
 module.exports = localIntercept;
