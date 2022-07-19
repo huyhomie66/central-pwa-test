@@ -17,6 +17,10 @@
  * or modify functionality from its dependencies.
  */
 
+// const { Targetables } = require('@magento/pwa-buildpack');
+const componentOverrideMapping = require('./init/componentOverrideMapping');
+const moduleOverridePlugin = require('./init/moduleOverridePlugin');
+
 function localIntercept(targets) {
     // Add CMS topbar
     targets.of('@magento/pagebuilder').customContentTypes.tap(contentTypes => {
@@ -25,6 +29,22 @@ function localIntercept(targets) {
             importPath: require.resolve('./src/pagebuilder/Topbar')
         });
     });
+
+    // override modules
+    targets.of('@magento/pwa-buildpack').webpackCompiler.tap(compiler => {
+        new moduleOverridePlugin(componentOverrideMapping).apply(compiler);
+    });
+
+    // const targetables = Targetables.using(targets);
+
+    // // Create a TargetableReactComponent linked to the `currentFilter.js` file
+    // const CurrentFilterComponent = targetables.reactComponent(
+    //     '@magento/venia-ui/lib/components/FilterModal/CurrentFilters/currentFilter.js'
+    // );
+    // CurrentFilterComponent.addJSXClassName(
+    //     'span className={classes.root} data-cy="CurrentFilter-root"',
+    //     '"customFilter"'
+    // );
 }
 
 module.exports = localIntercept;

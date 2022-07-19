@@ -1,0 +1,19 @@
+.root {
+    display: flex;
+    align-items: center;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 0 8px;
+    gap: 6px;
+}
+
+.button {
+    background-color: black;
+    border-radius: 5px;
+}
+
+.icon svg {
+    stroke: white;
+    width: 15px;
+    height: 15px;
+}
